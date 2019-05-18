@@ -1,0 +1,218 @@
+#include "Calender.h"
+
+bool CheckADay(int Day, int Month, int Year)
+{
+	if (Year > 1900)
+	{
+		if (Month > 0 && Month <= 12)
+		{
+			switch (Month)
+			{
+			case 1:
+			case 3:
+			case 5:
+			case 7:
+			case 8:
+			case 10:
+			case 12:
+				if (Day > 0 && Day <= 31)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			case 2:
+				if (Year % 400 == 0 || Year % 4 == 0 && Year % 100 != 0)
+				{
+					if (Day > 0 || Day <= 29)
+					{
+						return true;
+					}
+				}
+				else
+				{
+					if (Day > 0 && Day <= 28)
+					{
+						return true;
+					}
+					else
+					{
+						return false;
+					}
+				}
+			default:
+				if (Day > 0 && Day <= 30)
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
+	}
+}
+int dayofweek(int day, int month, int year)
+{
+	int a = (14 - month) / 12;
+	int y = year - a;
+	int m = month + 12 * a - 2;
+	int dayofweeky;
+	dayofweeky = (day + y + y / 4 - y / 100 + y / 400 + (31 * m) / 12) % 7;
+	return dayofweeky;
+}
+void Screen(int &Year)
+{
+	int month;
+	int dayprint;
+	int start;
+	int count_print;
+	int widght_size;
+	char choose_next;
+	do
+	{
+		cout << "Enter a Year: ";
+		cin >> Year;
+		cout << "Take A Widght Easy For You To Look: ";
+		cin >> widght_size;
+		/*cout << "Enter a Month: ";
+		cin >> month;*/
+		//day of week = (d + y + y/4 - y/100 +y/400 +(31 * m)/12) % 7
+		//with a = (14 - month)/12
+		//y = year - a
+		//m = month + 12 * a - 2
+		//dayofweek = 0 (Chu Nhat), 1 (thu 2), 2 (thu 3),...
+		// 
+		//for (int var = 0; var < 12; var++)
+		//{
+			//cout << "Thang " << month << ": " << endl;
+		for (int var_month = 1; var_month <= 12; var_month++)
+		{
+			int var_to_newline = 1;		//must declare this var_to_newline to this funtion to reset value of this variable to 
+			count_print = 0;
+			switch (var_month)
+			{
+			case 1:
+				cout << endl << "January:" << endl;
+				break;
+			case 2:
+				cout << endl << "February: " << endl;
+				break;
+			case 3:
+				cout << endl << "March: " << endl;
+				break;
+			case 4:
+				cout << endl << "April: " << endl;
+				break;
+			case 5:
+				cout << endl << "May: " << endl;
+				break;
+			case 6:
+				cout << endl << "June: " << endl;
+				break;
+			case 7:
+				cout << endl << "July: " << endl;
+				break;
+			case 8:
+				cout << endl << "August: " << endl;
+				break;
+			case 9:
+				cout << endl << "September: " << endl;
+				break;
+			case 10:
+				cout << endl << "October: " << endl;
+				break;
+			case 11:
+				cout << endl << "November: " << endl;
+				break;
+			case 12:
+				cout << endl << "December: " << endl;
+				break;
+			}
+			cout << setw(widght_size) << "Mon" << setw(widght_size) << "Tue" << setw(widght_size) << "Wed" << setw(widght_size) << "Thu" << setw(widght_size) << "Fri" << setw(widght_size) << "Sat" << setw(widght_size) << "Sun" << endl;
+			start = dayofweek(1, var_month, Year);
+			int var_check;
+			var_check = start;
+			cout << setw(widght_size * dayofweek(1, var_month, Year));
+			//alway occurred.
+			int current_day_print = 1;
+			while (var_check < 7)		//print out first line the encounter 
+			{
+				if (var_check == 0)
+				{
+					cout << setw(widght_size * 7) << current_day_print << endl;
+					break;
+				}
+				cout << current_day_print << setw(widght_size);
+				current_day_print++;
+				var_check++;
+				if (var_check == 7)
+				{
+					cout << current_day_print << endl;
+					break;
+				}
+			}
+			cout << setw(widght_size);
+			for (int dayprint = current_day_print + 1; dayprint <= 31; dayprint++)
+			{
+				if (CheckADay(dayprint, var_month, Year) == true)
+				{
+					cout << dayprint << setw(widght_size);
+					count_print++;
+					if (count_print == (7 * var_to_newline))
+					{
+						cout << endl;
+						//count_print = 0;
+						var_to_newline++;
+					}
+				}
+			}
+			cout << endl;
+		}
+		cout << endl << "Are You Want To Check Some Year(Yes Press 'y' or 'Y', No Press Any Key): ";
+		rewind(stdin);
+		choose_next = getc(stdin);
+	} while (choose_next == 'y' || choose_next == 'Y');
+}
+//setw equivalent with set widght.
+
+//test program to check day in week  
+	/*if ((dayofweek(7, 3, 2019) == 0))
+	{
+		cout << "CN";
+	}
+	if ((dayofweek(7, 3, 2019) == 1))
+	{
+		cout << "thu 2";
+	}
+	if ((dayofweek(7, 3, 2019) == 2))
+	{
+		cout << "thu 3";
+	}
+	if ((dayofweek(7, 3, 2019) == 3))
+	{
+		cout << "thu 4";
+	}
+	if ((dayofweek(7, 3, 2019) == 4))
+	{
+		cout << "thu 5";
+	}
+	if ((dayofweek(7, 3, 2019) == 5))
+	{
+		cout << "thu 6";
+	}
+	if ((dayofweek(7, 3, 2019) == 6))
+	{
+		cout << "thu 7";
+	}*/
