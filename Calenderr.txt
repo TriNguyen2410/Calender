@@ -78,14 +78,14 @@ void Screen(int &Year)
 	int dayprint;
 	int start;
 	int count_print;
-	int widght_size;
+	int width_size;
 	char choose_next;
 	do
 	{
 		cout << "Enter a Year: ";
 		cin >> Year;
 		cout << "Take A Widght Easy For You To Look: ";
-		cin >> widght_size;
+		cin >> width_size;
 		/*cout << "Enter a Month: ";
 		cin >> month;*/
 		//day of week = (d + y + y/4 - y/100 +y/400 +(31 * m)/12) % 7
@@ -140,21 +140,21 @@ void Screen(int &Year)
 				cout << endl << "December: " << endl;
 				break;
 			}
-			cout << setw(widght_size) << "Mon" << setw(widght_size) << "Tue" << setw(widght_size) << "Wed" << setw(widght_size) << "Thu" << setw(widght_size) << "Fri" << setw(widght_size) << "Sat" << setw(widght_size) << "Sun" << endl;
+			cout << setw(width_size) << "Mon" << setw(width_size) << "Tue" << setw(width_size) << "Wed" << setw(width_size) << "Thu" << setw(width_size) << "Fri" << setw(width_size) << "Sat" << setw(width_size) << "Sun" << endl;
 			start = dayofweek(1, var_month, Year);
 			int var_check;
 			var_check = start;
-			cout << setw(widght_size * dayofweek(1, var_month, Year));
+			cout << setw(width_size * dayofweek(1, var_month, Year));
 			//alway occurred.
 			int current_day_print = 1;
 			while (var_check < 7)		//print out first line the encounter 
 			{
 				if (var_check == 0)
 				{
-					cout << setw(widght_size * 7) << current_day_print << endl;
+					cout << setw(width_size * 7) << current_day_print << endl;
 					break;
 				}
-				cout << current_day_print << setw(widght_size);
+				cout << current_day_print << setw(width_size);
 				current_day_print++;
 				var_check++;
 				if (var_check == 7)
@@ -163,12 +163,12 @@ void Screen(int &Year)
 					break;
 				}
 			}
-			cout << setw(widght_size);
+			cout << setw(width_size);
 			for (int dayprint = current_day_print + 1; dayprint <= 31; dayprint++)
 			{
 				if (CheckADay(dayprint, var_month, Year) == true)
 				{
-					cout << dayprint << setw(widght_size);
+					cout << dayprint << setw(width_size);
 					count_print++;
 					if (count_print == (7 * var_to_newline))
 					{
